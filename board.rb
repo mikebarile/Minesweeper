@@ -40,17 +40,25 @@ class Board
 
   def determine_cell_value(pos)
     return :x if self[pos] == :x
-    adj_bombs = check_horizontal(pos) + check_vertical(pos) +
-      check_diagonal(pos)
+    check_horizontal(pos) + check_vertical(pos) + check_diagonal(pos)
   end
 
-  def check_horizontal
+  def check_horizontal(pos)
+    row,col = pos
+    num_bombs = 0
+    num_bombs +=1 if col != 0 && self[[row,col-1]] == :x
+    num_bombs +=1 if col != @grid.length-1 && self[[row,col+1]] == :x
   end
 
-  def check_vertical
+  def check_vertical(pos)
+    row,col = pos
+    num_bombs = 0
+    num_bombs +=1 if row != 0 && self[[row-1,col]] == :x
+    num_bombs +=1 if row != @grid.length-1 && self[[row+1,col]] == :x
   end
 
-  def check_diagonal
+  def check_diagonal(pos)
+    #use check horizontal above and below
   end
 
   def create_tiles
