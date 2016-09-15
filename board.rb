@@ -1,5 +1,6 @@
 class Board
   attr_reader :grid_size
+
   def initialize(grid_size = 9)
     @grid = Array.new(grid_size) {Array.new(grid_size)}
     populate_grid
@@ -79,23 +80,23 @@ class Board
       puts "#{i} #{row.map(&:to_s).join(" ")}"
     end
   end
-end
 
-def won?
-  won = true
-  @grid.each do |row|
-    row.each do |el|
-      won = false if !el.is_flipped? && !el.is_bomb?
+  def won?
+    won = true
+    @grid.each do |row|
+      row.each do |el|
+        won = false if !el.is_flipped? && !el.is_bomb?
+      end
     end
+    won
   end
-  won
-end
 
-def lost?
-  lost = false
-  @grid.each do |row|
-    row.each do |el|
-      lost = true if el.is_flipped? && el.is_bomb?
+  def lost?
+    lost = false
+    @grid.each do |row|
+      row.each do |el|
+        lost = true if el.is_flipped? && el.is_bomb?
+      end
     end
   end
 end

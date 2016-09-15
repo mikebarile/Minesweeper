@@ -1,3 +1,5 @@
+require 'colorize'
+require 'byebug'
 require_relative 'player'
 require_relative 'board'
 require_relative 'tile'
@@ -40,7 +42,8 @@ class Minesweeper
   end
 
   def over?
-    @board.won? || @board.lost?
+    debugger
+    @board.lost? || @board.won?
   end
 
   def end_game
