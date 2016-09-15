@@ -1,4 +1,3 @@
-require_relative 'tile'
 class Board
   attr_reader :grid_size
   def initialize(grid_size = 9)

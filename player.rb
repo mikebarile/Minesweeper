@@ -4,10 +4,10 @@ class Player
   end
 
   def get_pos(board)
-    p "Player, enter the position for your next move. (e.g. row,col)"
+    p "Enter a position in the format 'row,col'"
     pos = gets.chomp.split(",").map(&:to_i)
     until valid_pos?(pos, board)
-      p "Invalid position, enter your move in the format 'row,col'."
+      p "Invalid entry: enter a position in the format 'row,col'."
       pos = gets.chomp.split(",").map(&:to_i)
     end
     pos
@@ -30,10 +30,10 @@ class Player
   end
 
   def get_action(pos, board)
-    p "Player, enter an action: 'F' for flip and 'M' for mark bomb."
+    p "Enter an action: either 'F' for flip or 'M' for mark bomb."
     action = gets.chomp
     until valid_action?(pos, action, board)
-      p "Invalid action, enter an action 'F' or 'M'."
+      p "Invalid action: enter an action 'F' or 'M'."
       action = gets.chomp
     end
     action
@@ -41,7 +41,7 @@ class Player
 
   def valid_action?(pos, action, board)
     if board[pos].is_marked? && action == "F"
-      p "Can't flip a marked tile! Yout must first unmark it using 'M'."
+      p "Can't flip a marked tile! First unmark it using 'M'."
       return false
     end
     action == "F" || action == "M"

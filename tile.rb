@@ -1,5 +1,4 @@
 class Tile
-
   def initialize(value)
     @value = value
     @flipped = false

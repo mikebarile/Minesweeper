@@ -5,13 +5,23 @@ require_relative 'tile'
 class Minesweeper
 
   def initialize
-    @board = Board.new
     @player = Player.new
   end
 
   def run
+    create_board
     take_turn until over?
     end_game
+  end
+
+  def create_board
+    p "Enter a grid size between 3 and 20."
+    size = gets.chomp.to_i
+    until size.is_a?(Integer) && size > 0 && size < 20
+      p "Invalid entry: enter an integer between 3 and 20"
+      size = gets.chomp
+    end
+    @board = Board.new(size)
   end
 
   def take_turn
@@ -35,11 +45,11 @@ class Minesweeper
 
   def end_game
     @board.render
-    #do stuff
+    p @board.won? ? "Congratulations, you won!" : "You suck!"
   end
 end
 
 if __FILE__ == $PROGRAM_NAME
-  b = Board.new
-  b.render
+  g = Minesweeper.new
+  g.run
 end
