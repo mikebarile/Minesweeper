@@ -80,6 +80,25 @@ class Board
   end
 end
 
+def won?
+  won = true
+  @grid.each do |row|
+    row.each do |el|
+      won = false if !el.is_flipped? && !el.is_bomb?
+    end
+  end
+  won
+end
+
+def lost?
+  lost = false
+  @grid.each do |row|
+    row.each do |el|
+      lost = true if el.is_flipped? && el.is_bomb?
+    end
+  end
+end
+
 if __FILE__ == $PROGRAM_NAME
   b = Board.new
   b.render

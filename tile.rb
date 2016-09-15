@@ -1,14 +1,9 @@
 class Tile
 
-  def initialize(value = " ")
+  def initialize(value)
     @value = value
     @flipped = false
     @marked = false
-    if value == :x
-      @bomb_flag = true
-    else
-      @bomb_flag = false
-    end
   end
 
   def flip!
@@ -23,9 +18,17 @@ class Tile
     @marked = !@marked
   end
 
+  def is_flipped?
+    @flipped
+  end
+
+  def is_bomb?
+    value == :x
+  end
+
   def to_s
     if @flipped
-      @value.to_s
+      @value.to_s == :x ? "X" : @value.to_s
     elsif @marked
       "?"
     else
