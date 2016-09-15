@@ -16,7 +16,17 @@ class Minesweeper
 
   def take_turn
     @board.render
-    input = @player.get_input
+    pos = player.get_pos(board)
+    action = player.get_action(pos, board)
+    action == "F" ? flip_tile(pos) : mark_tile(pos)
+  end
+
+  def flip_tile(pos)
+    @board[pos].flip!
+  end
+
+  def mark_tile(pos)
+    @board[pos].mark!
   end
 
   def over?
@@ -24,5 +34,12 @@ class Minesweeper
   end
 
   def end_game
+    @board.render
+    #do stuff
   end
+end
+
+if __FILE__ == $PROGRAM_NAME
+  b = Board.new
+  b.render
 end

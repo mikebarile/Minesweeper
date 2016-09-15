@@ -1,8 +1,10 @@
 require_relative 'tile'
 class Board
+  attr_reader :grid_size
   def initialize(grid_size = 9)
     @grid = Array.new(grid_size) {Array.new(grid_size)}
     populate_grid
+    @grid_size = grid_size
   end
 
   def [](pos)
@@ -97,9 +99,4 @@ def lost?
       lost = true if el.is_flipped? && el.is_bomb?
     end
   end
-end
-
-if __FILE__ == $PROGRAM_NAME
-  b = Board.new
-  b.render
 end

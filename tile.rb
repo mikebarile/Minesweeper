@@ -26,6 +26,10 @@ class Tile
     value == :x
   end
 
+  def is_marked?
+    @marked
+  end
+
   def to_s
     if @flipped
       @value.to_s == :x ? "X" : @value.to_s
