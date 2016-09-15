@@ -4,9 +4,9 @@ require_relative 'tile'
 
 class Minesweeper
 
-  def initialize(board = Array.new(9){Array.new(9)})
-    @board = board
-    populate_bombs(@board)
+  def initialize
+    @board = Board.new
+    @player = Player.new
   end
 
   def run
@@ -15,10 +15,12 @@ class Minesweeper
   end
 
   def take_turn
+    @board.render
+    input = @player.get_input
   end
 
   def over?
-
+    @board.won? || @board.lost?
   end
 
   def end_game
