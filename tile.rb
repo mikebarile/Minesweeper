@@ -1,10 +1,10 @@
 class Tile
 
-  def initialize(value = "")
+  def initialize(value = " ")
     @value = value
     @flipped = false
     @marked = false
-    if value == :b
+    if value == :x
       @bomb_flag = true
     else
       @bomb_flag = false
@@ -24,7 +24,12 @@ class Tile
   end
 
   def to_s
-    @value.to_s
+    if @flipped
+      @value.to_s
+    elsif @marked
+      "?"
+    else
+      "*"
+    end
   end
-
 end

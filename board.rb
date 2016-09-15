@@ -1,5 +1,5 @@
+require_relative 'tile'
 class Board
-
   def initialize(grid_size = 9)
     @grid = Array.new(grid_size) {Array.new(grid_size)}
     populate_grid
@@ -23,8 +23,8 @@ class Board
     num_bomb = 0
     until num_bomb == @grid.length + 1
       pos = [rand(@grid.length), rand(@grid.length)]
-      unless @grid[pos] == :x
-        @grid[pos] = :x
+      unless self[pos] == :x
+        self[pos] = :x
         num_bomb += 1
       end
     end
@@ -48,6 +48,7 @@ class Board
     num_bombs = 0
     num_bombs +=1 if col != 0 && self[[row,col-1]] == :x
     num_bombs +=1 if col != @grid.length-1 && self[[row,col+1]] == :x
+    num_bombs
   end
 
   def check_vertical(pos)
@@ -55,6 +56,7 @@ class Board
     num_bombs = 0
     num_bombs +=1 if row != 0 && self[[row-1,col]] == :x
     num_bombs +=1 if row != @grid.length-1 && self[[row+1,col]] == :x
+    num_bombs
   end
 
   def check_diagonal(pos)
@@ -63,14 +65,22 @@ class Board
     #use check horizontal above and below
     num_bombs += check_horizontal([row+1,col]) unless row == @grid.length-1
     num_bombs += check_horizontal([row-1,col]) unless row == 0
+    num_bombs
   end
 
   def create_tiles
-    @grid.each do |row|
-      row.each do |el|
-        el = Tile.new(el)
-      end
-    end
+    @grid.each  {|row| row.map! {|el| Tile.new(el)}}
   end
 
+  def render
+    puts "  #{(0...@grid.length).to_a.join(" ")}"
+    @grid.each_with_index do |row, i|
+      puts "#{i} #{row.map(&:to_s).join(" ")}"
+    end
+  end
+end
+
+if __FILE__ == $PROGRAM_NAME
+  b = Board.new
+  b.render
 end
