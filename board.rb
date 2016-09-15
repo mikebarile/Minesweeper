@@ -58,11 +58,19 @@ class Board
   end
 
   def check_diagonal(pos)
+    row,col = pos
+    num_bombs = 0
     #use check horizontal above and below
+    num_bombs += check_horizontal([row+1,col]) unless row == @grid.length-1
+    num_bombs += check_horizontal([row-1,col]) unless row == 0
   end
 
   def create_tiles
-
+    @grid.each do |row|
+      row.each do |el|
+        el = Tile.new(el)
+      end
+    end
   end
 
 end
