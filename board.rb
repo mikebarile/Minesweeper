@@ -2,8 +2,7 @@ class Board
   attr_reader :grid_size
 
   def initialize(grid_size = 9)
-    @grid = Array.new(grid_size) {Array.new(grid_size)}
-    populate_grid
+    @grid = Array.new(grid_size) {Array.new(grid_size){0}}
     @grid_size = grid_size
   end
 
@@ -15,17 +14,17 @@ class Board
     @grid[pos[0]][pos[1]] = val
   end
 
-  def populate_grid
-    seed_bombs
+  def populate_grid(pos)
+    seed_bombs(pos)
     populate_values
     create_tiles
   end
 
-  def seed_bombs
+  def seed_bombs(guess)
     num_bomb = 0
     until num_bomb == @grid.length + 1
       pos = [rand(@grid.length), rand(@grid.length)]
-      unless self[pos] == :x
+      unless self[pos] == :x || pos == guess
         self[pos] = :x
         num_bomb += 1
       end

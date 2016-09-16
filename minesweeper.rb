@@ -8,6 +8,7 @@ class Minesweeper
 
   def initialize
     @player = Player.new
+    @first_flip = true
   end
 
   def run
@@ -21,9 +22,11 @@ class Minesweeper
     size = gets.chomp.to_i
     until size.is_a?(Integer) && size > 0 && size < 20
       p "Invalid entry: enter an integer between 3 and 20"
-      size = gets.chomp
+      size = gets.chomp.to_i
     end
     @board = Board.new(size)
+    @board.populate_values
+    @board.create_tiles
   end
 
   def take_turn
@@ -34,6 +37,10 @@ class Minesweeper
   end
 
   def flip_tile(pos)
+    if @first_flip
+      @board.populate_grid(pos)
+      @first_flip = false
+    end
     result = @board[pos].flip!
     if result == 0
       flip_cascade(pos)
