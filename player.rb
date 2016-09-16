@@ -2,22 +2,36 @@ require_relative 'board'
 require_relative 'tile'
 
 class Player
+  INVALID_CHARACTERS = %w[! @ # $ % % ^ & * ( ) ~ ' " [ ] { } | \
+    = - , . < > / ? a b c d e f g h i j k l m n o p q r s t u v w
+    x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]
 
   def initialize
   end
 
   def get_pos(board)
     p "Enter a position in the format 'row,col'"
-    pos = gets.chomp.split(",").map(&:to_i)
+    pos = gets.chomp.split(",")
+    pos = valid_chars?(pos).map(&:to_i)
     until valid_pos?(pos, board)
       p "Invalid entry: enter a position in the format 'row,col'."
-      pos = gets.chomp.split(",").map(&:to_i)
+      pos = gets.chomp.split(",")
+      pos = valid_chars?(pos).map(&:to_i)
     end
     pos
   end
 
   def valid_pos?(pos, board)
     pos_in_bounds?(pos, board) && pos_abides_rules?(pos, board)
+  end
+
+  def valid_chars?(pos)
+    if !INVALID_CHARACTERS.include?(pos[0]) &&
+      !INVALID_CHARACTERS.include?(pos[1])
+      pos
+    else
+      [-1, -1]
+    end
   end
 
   def pos_in_bounds?(pos, board)
