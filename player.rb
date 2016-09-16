@@ -1,3 +1,6 @@
+require_relative 'board'
+require_relative 'tile'
+
 class Player
 
   def initialize

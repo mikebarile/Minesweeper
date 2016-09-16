@@ -1,3 +1,4 @@
+require 'colorize'
 class Board
   attr_reader :grid_size
 
@@ -74,9 +75,9 @@ class Board
   end
 
   def render
-    puts "  #{(0...@grid.length).to_a.join(" ")}"
+    puts "  #{(0...@grid.length).to_a.join(" ").colorize(:white)}"
     @grid.each_with_index do |row, i|
-      puts "#{i} #{row.map(&:to_s).join(" ")}"
+      puts "#{i.to_s.colorize(:white)} #{row.map(&:to_s).join(" ")}"
     end
   end
 

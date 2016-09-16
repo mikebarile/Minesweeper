@@ -1,3 +1,5 @@
+require 'colorize'
+
 class Tile
   def initialize(value)
     @value = value
@@ -32,11 +34,12 @@ class Tile
 
   def to_s
     if @flipped
-      @value == :x ? "X" : @value.to_s
+      return " " if @value == 0
+      @value == :x ? "X".colorize(:red) : @value.to_s.colorize(:light_blue)
     elsif @marked
-      "?"
+      "?".colorize(:yellow)
     else
-      "*"
+      "*".colorize(:green)
     end
   end
 end
