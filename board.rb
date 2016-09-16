@@ -98,5 +98,6 @@ class Board
         lost = true if el.is_flipped? && el.is_bomb?
       end
     end
+    lost
   end
 end

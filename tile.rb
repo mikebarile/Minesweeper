@@ -7,7 +7,8 @@ class Tile
 
   def flip!
     if @flipped == false
-      @fliped = true
+      @flipped = true
+      @value
     else
       raise 'Cannot flip a previously flipped tile!'
     end
@@ -22,7 +23,7 @@ class Tile
   end
 
   def is_bomb?
-    value == :x
+    @value == :x
   end
 
   def is_marked?
@@ -31,7 +32,7 @@ class Tile
 
   def to_s
     if @flipped
-      @value.to_s == :x ? "X" : @value.to_s
+      @value == :x ? "X" : @value.to_s
     elsif @marked
       "?"
     else

@@ -26,7 +26,7 @@ class Player
   end
 
   def pos_abides_rules?(pos, board)
-    !@board[pos].is_flipped?
+    !board[pos].is_flipped?
   end
 
   def get_action(pos, board)
